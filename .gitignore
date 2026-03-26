@@ -21,6 +21,7 @@
 /storage/qualregistry.sqlite
 /data/raw
 /data/canonical
+/reports/ingestion
 /vendor
 Homestead.json
 Homestead.yaml
