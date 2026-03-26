@@ -44,10 +44,10 @@ See `.github/workflows/ci.yml`.
 - docs/INGESTION-ARCHITECTURE-v0.md
 
 ## Ofqual ingestion POC (real data)
-Run from repo root:
+Run from repo root (PHP/Laravel only):
 
 ```bash
-python3 scripts/ofqual_ingest.py
+php artisan ingest:ofqual
 ```
 
 What it does in one deterministic pass:
@@ -62,7 +62,10 @@ What it does in one deterministic pass:
   - `run-report.json`
   - `run-report.md`
 
+Runtime note:
+- Ingestion runtime is now Laravel-native PHP (no Python dependency in the ingestion path).
+
 Optional:
 ```bash
-python3 scripts/ofqual_ingest.py --run-date 2026-03-26
+php artisan ingest:ofqual --run-date=2026-03-26
 ```
