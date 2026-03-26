@@ -7,8 +7,7 @@ class PlaceholderInstitutionSource
     public function __construct(
         private readonly string $label,
         private readonly ?string $configKey = null,
-    ) {
-    }
+    ) {}
 
     public function run(): array
     {

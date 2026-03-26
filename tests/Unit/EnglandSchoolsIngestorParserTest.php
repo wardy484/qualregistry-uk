@@ -9,7 +9,7 @@ URN,EstablishmentName,PhaseOfEducation (name),GOR (name),Postcode,EstablishmentS
 200001,Gamma School,All-through,North West,M1 1AA,Open,Free schools,Manchester
 CSV;
 
-    $rows = (new EnglandSchoolsIngestor())->parseCsv($csv, 'https://example.test/gias.csv', Carbon::parse('2026-03-26T00:00:00Z'));
+    $rows = (new EnglandSchoolsIngestor)->parseCsv($csv, 'https://example.test/gias.csv', Carbon::parse('2026-03-26T00:00:00Z'));
 
     expect($rows)->toHaveCount(1)
         ->and($rows[0]['external_id'])->toBe('200001')
