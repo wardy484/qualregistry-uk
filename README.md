@@ -34,6 +34,11 @@ GitHub Actions runs on push/PR and covers:
 
 See `.github/workflows/ci.yml`.
 
+## Laravel Cloud deployment
+- Deployment runbook: `docs/LARAVEL-CLOUD-DEPLOY.md`
+- Production env template: `.env.cloud.example`
+- Release script: `scripts/cloud-release.sh`
+
 ## shadcn/ui
 - Starter config is in `components.json`
 - Setup notes: `docs/SHADCN-SETUP.md`
