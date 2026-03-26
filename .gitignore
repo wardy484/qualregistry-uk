@@ -18,6 +18,9 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/qualregistry.sqlite
+/data/raw
+/data/canonical
 /vendor
 Homestead.json
 Homestead.yaml

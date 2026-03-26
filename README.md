@@ -64,3 +64,30 @@ Colleges: Colleges ingestion not configured yet. TODO: wire authoritative FE/HE 
 Universities: Universities ingestion not configured yet. TODO: wire authoritative FE/HE source (services.institutions.universities).
 Run report: /.../reports/ingestion/institutions/<YYYY-MM-DD>/run-report.md
 ```
+
+## Ofqual ingestion POC (real data)
+Run from repo root (PHP/Laravel only):
+
+```bash
+php artisan ingest:ofqual
+```
+
+What it does in one deterministic pass:
+- Downloads source CSVs to `data/raw/ofqual/<YYYY-MM-DD>/`
+- Writes `sha256sums.txt` alongside raw files
+- Transforms to canonical CSVs in `data/canonical/<YYYY-MM-DD>/`:
+  - `awarding_bodies.csv`
+  - `qualifications.csv`
+- Loads canonical outputs into SQLite at `storage/qualregistry.sqlite`
+  - tables: `awarding_bodies`, `qualifications`
+- Generates run reports in `reports/ingestion/ofqual/<YYYY-MM-DD>/`:
+  - `run-report.json`
+  - `run-report.md`
+
+Runtime note:
+- Ingestion runtime is now Laravel-native PHP (no Python dependency in the ingestion path).
+
+Optional:
+```bash
+php artisan ingest:ofqual --run-date=2026-03-26
+```
