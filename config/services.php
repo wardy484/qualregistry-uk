@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'gias' => [
+        'schools_csv_url' => env('GIAS_SCHOOLS_CSV_URL'),
+    ],
+
+    'institutions' => [
+        'colleges' => env('ENGLAND_COLLEGES_SOURCE_URL'),
+        'universities' => env('ENGLAND_UNIVERSITIES_SOURCE_URL'),
+    ],
+
 ];

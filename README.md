@@ -42,3 +42,25 @@ See `.github/workflows/ci.yml`.
 - docs/PRD-v0.md
 - docs/DATA-CONTRACT-v0.md
 - docs/INGESTION-ARCHITECTURE-v0.md
+
+## Institutions ingestion (England schools + FE/HE placeholders)
+Run from repo root:
+
+```bash
+php artisan ingest:institutions-england
+```
+
+Deterministic rerun command (pin source URL):
+
+```bash
+php artisan ingest:institutions-england --csv-url="https://ea-edubase-api-prod.azurewebsites.net/edubase/downloads/public/edubasealldataYYYYMMDD.csv"
+```
+
+Expected output:
+
+```text
+Schools: inserted=<N> updated=<N> skipped=<N>
+Colleges: Colleges ingestion not configured yet. TODO: wire authoritative FE/HE source (services.institutions.colleges).
+Universities: Universities ingestion not configured yet. TODO: wire authoritative FE/HE source (services.institutions.universities).
+Run report: /.../reports/ingestion/institutions/<YYYY-MM-DD>/run-report.md
+```
