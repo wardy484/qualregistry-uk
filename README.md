@@ -42,3 +42,27 @@ See `.github/workflows/ci.yml`.
 - docs/PRD-v0.md
 - docs/DATA-CONTRACT-v0.md
 - docs/INGESTION-ARCHITECTURE-v0.md
+
+## Ofqual ingestion POC (real data)
+Run from repo root:
+
+```bash
+python3 scripts/ofqual_ingest.py
+```
+
+What it does in one deterministic pass:
+- Downloads source CSVs to `data/raw/ofqual/<YYYY-MM-DD>/`
+- Writes `sha256sums.txt` alongside raw files
+- Transforms to canonical CSVs in `data/canonical/<YYYY-MM-DD>/`:
+  - `awarding_bodies.csv`
+  - `qualifications.csv`
+- Loads canonical outputs into SQLite at `storage/qualregistry.sqlite`
+  - tables: `awarding_bodies`, `qualifications`
+- Generates run reports in `reports/ingestion/ofqual/<YYYY-MM-DD>/`:
+  - `run-report.json`
+  - `run-report.md`
+
+Optional:
+```bash
+python3 scripts/ofqual_ingest.py --run-date 2026-03-26
+```
