@@ -34,6 +34,11 @@ GitHub Actions runs on push/PR and covers:
 
 See `.github/workflows/ci.yml`.
 
+## Laravel Cloud deployment
+- Deployment runbook: `docs/LARAVEL-CLOUD-DEPLOY.md`
+- Production env template: `.env.cloud.example`
+- Release script: `scripts/cloud-release.sh`
+
 ## shadcn/ui
 - Starter config is in `components.json`
 - Setup notes: `docs/SHADCN-SETUP.md`
@@ -64,6 +69,43 @@ Colleges: Colleges ingestion not configured yet. TODO: wire authoritative FE/HE 
 Universities: Universities ingestion not configured yet. TODO: wire authoritative FE/HE source (services.institutions.universities).
 Run report: /.../reports/ingestion/institutions/<YYYY-MM-DD>/run-report.md
 ```
+
+## One-command England ingestion runbook (ops)
+Run from repo root:
+
+```bash
+php artisan ingest:all-england
+```
+
+Deterministic rerun for a known date + pinned schools source:
+
+```bash
+php artisan ingest:all-england --run-date=2026-03-26 --csv-url="https://ea-edubase-api-prod.azurewebsites.net/edubase/downloads/public/edubasealldataYYYYMMDD.csv"
+```
+
+What this orchestrates:
+1. `ingest:institutions-england`
+2. `ingest:ofqual`
+
+Behavior:
+- Stops on first failed step (safe default).
+- Prints per-step status + exit code summary.
+- Prints latest run-report file paths when present.
+
+List latest ingestion reports:
+
+```bash
+php artisan ingest:reports --limit=10
+```
+
+Local-only manual trigger endpoint (guarded for safety):
+- `POST /internal/ingestion/all-england/run`
+- `GET /internal/ingestion/reports?limit=10`
+
+Notes:
+- Endpoints require authenticated web session.
+- Endpoints return **403** outside `APP_ENV=local`.
+- For Laravel Cloud/prod operations, use artisan commands instead.
 
 ## Ofqual ingestion POC (real data)
 Run from repo root (PHP/Laravel only):
